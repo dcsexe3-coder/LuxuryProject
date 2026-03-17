@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подключение к серверу GMod | Indiana</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(25, 25, 35, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid #3498db;
+        }
+        
+        .logo {
+            font-size: 48px;
+            color: #3498db;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(52, 152, 219, 0.7);
+        }
+        
+        h1 {
+            color: #3498db;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .server-info {
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: left;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .ip-address {
+            font-family: monospace;
+            font-size: 24px;
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            display: inline-block;
+            border: 2px solid #3498db;
+        }
+        
+        .connect-btn {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 25px 0;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .connect-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.6);
+            background: linear-gradient(45deg, #2980b9, #1f618d);
+        }
+        
+        .copy-btn {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: #27ae60;
+            transform: scale(1.05);
+        }
+        
+        .instructions {
+            background: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid #2ecc71;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: left;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        
+        .instructions li {
+            margin: 10px 0;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            color: #95a5a6;
+            font-size: 14px;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 8px 20px;
+            background: #2ecc71;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .ip-address {
+                font-size: 18px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🎮</div>
+        <div class="status">● Сервер онлайн</div>
+        <h1>Подключение к серверу Garry's Mod</h1>
+        
+        <div class="server-info">
+            <h2>📡 Информация о сервере:</h2>
+            <p><strong>Название:</strong> Indiana GMod Server</p>
+            <p><strong>Игра:</strong> Garry's Mod</p>
+            <p><strong>Карта:</strong> indianabangclaw</p>
+            <p><strong>Игроки:</strong> 32/128</p>
+        </div>
+        
+        <h2>IP-адрес сервера:</h2>
+        <div class="ip-address" id="ipText">212.22.85.158:27015</div>
+        <div>
+            <button class="copy-btn" onclick="copyIP()">📋 Копировать IP</button>
+        </div>
+        
+        <button class="connect-btn" onclick="connectToServer()">
+            🔗 Подключиться к серверу
+        </button>
+        
+        <div class="instructions">
+            <h2>📝 Инструкция по подключению:</h2>
+            <ol>
+                <li>Нажмите кнопку "Подключиться к серверу" выше</li>
+                <li>Если Steam откроется — нажмите "Подключиться" в окне GMod</li>
+                <li>Если автоматическое подключение не сработало:</li>
+                <li>Запустите Garry's Mod</li>
+                <li>Нажмите <kbd>~</kbd> (тильда) чтобы открыть консоль</li>
+                <li>Введите команду: <code>connect 212.22.85.158:27015</code></li>
+                <li>Нажмите Enter для подключения</li>
+            </ol>
+        </div>
+        
+        <div class="footer">
+            <p>© 2024 Indiana GMod Server | Страница автоматического подключения</p>
+            <p>Убедитесь, что у вас установлены Steam и Garry's Mod</p>
+        </div>
+    </div>
+
+    <script>
+        // Автоматическое перенаправление при загрузке
+        setTimeout(function() {
+            window.location.href = "steam://connect/212.22.85.158:27015";
+        }, 1500);
+        
+        function connectToServer() {
+            // Попытка открыть через Steam
+            window.location.href = "steam://connect/212.22.85.158:27015";
+            
+            // Резервное уведомление
+            setTimeout(function() {
+                if (!document.hidden) {
+                    alert("Если GMod не открылся:\n\n1. Убедитесь, что Steam запущен\n2. Скопируй команду в консоль GMod:\n\nconnect 212.22.85.158:27015");
+                }
+            }, 2000);
+        }
+        
+        function copyIP() {
+            const ipText = document.getElementById('ipText').textContent;
+            navigator.clipboard.writeText(ipText)
+                .then(() => {
+                    const btn = event.target;
+                    const originalText = btn.textContent;
+                    btn.textContent = '✓ Скопировано!';
+                    btn.style.background = '#27ae60';
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = '';
+                    }, 2000);
+                })
+                .catch(err => {
+                    alert('Не удалось скопировать. Скопируйте вручную: ' + ipText);
+                });
+        }
+        
+        // Проверка видимости страницы для определения успешности редиректа
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                console.log('Страница скрыта - редирект сработал');
+            }
+        });
+    </script>
+</body>
+</html>
