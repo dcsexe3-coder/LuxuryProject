@@ -208,17 +208,17 @@
     <script>
         // Автоматическое перенаправление при загрузке
         setTimeout(function() {
-            window.location.href = "steam://connect/212.";
+            window.location.href = "steam://connect/62.122.214.100:26297";
         }, 1500);
         
         function connectToServer() {
             // Попытка открыть через Steam
-            window.location.href = "steam://connect/212.";
+            window.location.href = "steam://connect/62.122.214.100:26297";
             
             // Резервное уведомление
             setTimeout(function() {
                 if (!document.hidden) {
-                    alert("Если GMod не открылся:\n\n1. Убедитесь, что Steam запущен\n2. Скопируй команду в консоль GMod:\n\nconnect 212.22.");
+                    alert("Если GMod не открылся:\n\n1. Убедитесь, что Steam запущен\n2. Скопируй команду в консоль GMod:\n\nconnect 62.122.214.100:26297");
                 }
             }, 2000);
         }
